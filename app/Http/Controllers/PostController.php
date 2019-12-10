@@ -65,7 +65,7 @@ class PostController extends Controller
             $this->errorMsg = $e->getMessage();
         }
 
-        return response()->json(Api::format($this->status, $this->data, $this->errorMsg), 201);
+        return response()->json(Api::format($this->status, $this->data, $this->errorMsg), 200);
     }
 
     public function update(Request $request, $id) {
@@ -88,7 +88,7 @@ class PostController extends Controller
             $this->errorMsg = $e->getMessage();
         }
 
-        return response()->json(Api::format($this->status, $this->data, $this->errorMsg), 201);
+        return response()->json(Api::format($this->status, $this->data, $this->errorMsg), 200);
     }
 
     public function delete($id = null) {

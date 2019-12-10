@@ -8,6 +8,7 @@ use Tymon\JWTAuth\Exceptions\JWTException;
 use Tymon\JWTAuth\Exceptions\TokenExpiredException;
 use Tymon\JWTAuth\Exceptions\TokenInvalidException;
 use App\Helpers\Api;
+use Concerns\InteractsWithInput;
 
 class Authenticate
 {
@@ -39,9 +40,9 @@ class Authenticate
      */
     public function handle($request, Closure $next, $guard = null)
     {
-        if (! $token = $this->auth->setRequest($request)->getToken()) {
+        if (! $token = $request->bearerToken()) 
             return response()->json(Api::format('false', '', 'Token is not provided'), 200);
-        }
+            
         try {
             $user = JWTAuth::parseToken()->authenticate();
         } catch (TokenExpiredException $e) {
@@ -53,9 +54,8 @@ class Authenticate
             return response()->json(Api::format('false', '', 'There is a problem with JWT Token'), 200);
         }
 
-        if (! $user) {
+        if (! $user)
             return response()->json(Api::format('false', '', 'User not Found'), 200);
-        }
 
         return $next($request);
     }

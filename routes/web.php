@@ -16,16 +16,20 @@ Route::get('/', function () {
 });
 
 
-Route::prefix('api')->middleware('cors')->group(function () {
+Route::group(['prefix' => 'api',  'middleware' => 'cors'], function () {
+
     Route::post('/register', 'UserController@register');
     Route::post('/login', 'UserController@login');
 
-    Route::middleware('auth.jwt')->group(function () {
+    Route::group(['middleware' => 'auth'], function () {
+    
         Route::post('/posts/add', 'PostController@store');
         Route::get('/posts', 'PostController@index');
         Route::get('/posts/{id}', 'PostController@getDetail');
         Route::post('/posts/{id}/edit', 'PostController@update');
         Route::get('/posts/{id}/delete', 'PostController@delete');
+
     });
+
 });
 

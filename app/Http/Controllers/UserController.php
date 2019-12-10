@@ -23,9 +23,8 @@ class UserController extends Controller
         try {
             $credentials = $request->only(['username', 'password']);
             $token = JWTAuth::attempt($credentials);
-            if(!$token) {
+            if(!$token)
                 return response()->json(Api::format("false", $this->data, 'Email atau Password anda salah.'), 200);
-            }
 
         } catch (JWTException $e) {
             return response()->json(Api::format("false", $this->data, $e->getMessage()), 200);
