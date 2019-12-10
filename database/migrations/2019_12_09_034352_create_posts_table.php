@@ -19,7 +19,7 @@ class CreatePostsTable extends Migration
             $table->string('content');
             $table->integer('created_by')->nullable();
             $table->integer('updated_by')->nullable();
-            $table->boolean('active');
+            $table->boolean('active')->default(1);
             $table->softDeletes();
             $table->timestamps();
         });

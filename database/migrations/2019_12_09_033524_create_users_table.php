@@ -18,8 +18,8 @@ class CreateUsersTable extends Migration
             $table->string('username');
             $table->string('password');
             $table->string('fullname');
-            $table->boolean('active');
-            $table->dateTime('deleted_at')->nullable();
+            $table->boolean('active')->nullable();
+            $table->softDeletes();
             $table->timestamps();
         });
     }
